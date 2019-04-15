@@ -1,0 +1,52 @@
+﻿@model IEnumerable<homeexam.Models.buyertable>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.buyer_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.product_sold_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.buyer_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.product_sold_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.product_sold_id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.product_sold_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.product_sold_id })
+        </td>
+    </tr>
+}
+
+</table>

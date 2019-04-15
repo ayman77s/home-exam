@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="home_examModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="buyertable">
+    <Key>
+      <PropertyRef Name="product_sold_id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="buyer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="product_sold_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Quantity" Type="Double" />
+    <NavigationProperty Name="product_table" Relationship="Self.FK_product_table_buyertable" FromRole="buyertable" ToRole="product_table" />
+  </EntityType>
+  <EntityType Name="product_table">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="product_Quantity" Type="Double" />
+    <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="buyertable" Relationship="Self.FK_product_table_buyertable" FromRole="product_table" ToRole="buyertable" />
+  </EntityType>
+  <Association Name="FK_product_table_buyertable">
+    <End Role="buyertable" Type="Self.buyertable" Multiplicity="1" />
+    <End Role="product_table" Type="Self.product_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="buyertable">
+        <PropertyRef Name="product_sold_id" />
+      </Principal>
+      <Dependent Role="product_table">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="home_examEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="buyertables" EntityType="Self.buyertable" />
+    <EntitySet Name="product_table" EntityType="Self.product_table" />
+    <AssociationSet Name="FK_product_table_buyertable" Association="Self.FK_product_table_buyertable">
+      <End Role="buyertable" EntitySet="buyertables" />
+      <End Role="product_table" EntitySet="product_table" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

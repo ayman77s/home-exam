@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="home_examModelStoreContainer" CdmEntityContainer="home_examEntities">
+    <EntitySetMapping Name="buyertables">
+      <EntityTypeMapping TypeName="home_examModel.buyertable">
+        <MappingFragment StoreEntitySet="buyertable">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="buyer_name" ColumnName="buyer_name" />
+          <ScalarProperty Name="product_sold_id" ColumnName="product_sold_id" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product_table">
+      <EntityTypeMapping TypeName="home_examModel.product_table">
+        <MappingFragment StoreEntitySet="product_table">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="product_name" ColumnName="product_name" />
+          <ScalarProperty Name="product_Quantity" ColumnName="product_Quantity" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

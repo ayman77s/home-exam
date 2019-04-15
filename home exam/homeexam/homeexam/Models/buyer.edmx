@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="home_examModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="buyertable">
+          <Key>
+            <PropertyRef Name="product_sold_id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="buyer_name" Type="varchar" MaxLength="50" />
+          <Property Name="product_sold_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantity" Type="float" />
+        </EntityType>
+        <EntityType Name="product_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="product_name" Type="varchar" MaxLength="50" />
+          <Property Name="product_Quantity" Type="float" />
+          <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_product_table_buyertable">
+          <End Role="buyertable" Type="Self.buyertable" Multiplicity="1" />
+          <End Role="product_table" Type="Self.product_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="buyertable">
+              <PropertyRef Name="product_sold_id" />
+            </Principal>
+            <Dependent Role="product_table">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="home_examModelStoreContainer">
+          <EntitySet Name="buyertable" EntityType="Self.buyertable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_table" EntityType="Self.product_table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_product_table_buyertable" Association="Self.FK_product_table_buyertable">
+            <End Role="buyertable" EntitySet="buyertable" />
+            <End Role="product_table" EntitySet="product_table" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="home_examModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="buyertable">
+          <Key>
+            <PropertyRef Name="product_sold_id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="buyer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="product_sold_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Double" />
+          <NavigationProperty Name="product_table" Relationship="Self.FK_product_table_buyertable" FromRole="buyertable" ToRole="product_table" />
+        </EntityType>
+        <EntityType Name="product_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="product_Quantity" Type="Double" />
+          <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="buyertable" Relationship="Self.FK_product_table_buyertable" FromRole="product_table" ToRole="buyertable" />
+        </EntityType>
+        <Association Name="FK_product_table_buyertable">
+          <End Role="buyertable" Type="Self.buyertable" Multiplicity="1" />
+          <End Role="product_table" Type="Self.product_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="buyertable">
+              <PropertyRef Name="product_sold_id" />
+            </Principal>
+            <Dependent Role="product_table">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="home_examEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="buyertables" EntityType="Self.buyertable" />
+          <EntitySet Name="product_table" EntityType="Self.product_table" />
+          <AssociationSet Name="FK_product_table_buyertable" Association="Self.FK_product_table_buyertable">
+            <End Role="buyertable" EntitySet="buyertables" />
+            <End Role="product_table" EntitySet="product_table" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="home_examModelStoreContainer" CdmEntityContainer="home_examEntities">
+          <EntitySetMapping Name="buyertables">
+            <EntityTypeMapping TypeName="home_examModel.buyertable">
+              <MappingFragment StoreEntitySet="buyertable">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="buyer_name" ColumnName="buyer_name" />
+                <ScalarProperty Name="product_sold_id" ColumnName="product_sold_id" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_table">
+            <EntityTypeMapping TypeName="home_examModel.product_table">
+              <MappingFragment StoreEntitySet="product_table">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_Quantity" ColumnName="product_Quantity" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
